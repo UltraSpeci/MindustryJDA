@@ -20,8 +20,8 @@ Step 4. Create a new discord bot account
 Step 5. Inviting the bot to your server.
   in the Bot section, click on the "Copy" button for the Bot-Token!
   then, put in this link
-  https://discordapp.com/api/oauth2/authorize?client_id=<bot-token>&permissions=8&scope=bot
-  and replace "<bot-token>" with the token you have just copied!
+  https://discordapp.com/api/oauth2/authorize?client_id=(bot-token)&permissions=8&scope=bot
+  and replace "(bot-token)" with the token you have just copied!
   
   Note: The bot will be given the administrator permission! I (blackassasin1234) does not access your bot in anyway!
 
