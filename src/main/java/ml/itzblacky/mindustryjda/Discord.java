@@ -9,7 +9,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import javax.security.auth.login.LoginException;
 import java.util.Map;
 
-import static ml.itzblacky.mindustryjda.Utils.getString;
+import static ml.itzblacky.mindustryjda.Utils.ConfigUtils.getString;
 
 public class Discord {
     private JDA jda;
@@ -18,36 +18,35 @@ public class Discord {
 
     public void initJDA() {
         config = Main.getConfigMap();
-        String botToken = getString(config, "bot_token");
+        String botToken = getString("bot_token");
         try {
             jda = new JDABuilder(botToken)
-                    .setActivity(Activity.playing(getString(config, "playing_message")))
+                    .setActivity(Activity.playing(getString("playing_message")))
                     .addEventListeners(new DiscordMessageListener(this))
                     .build()
                     .awaitReady();
         } catch (LoginException e) {
             Log.info("Error logging into discord! Perhaps you have not changed the bot token yet?");
-            Main.disablePlugin();
         } catch (InterruptedException e) {
             Log.info("Error loggin into discord!");
             e.printStackTrace();
-            Main.disablePlugin();
 
         }
+
         if (jda != null) {
             setMainTextChannel();
         }
     }
 
     private void setMainTextChannel() {
-        TextChannel chnl = jda.getTextChannelById(getString(config, "chat_channel_id"));
+        TextChannel chnl = jda.getTextChannelById(getString("chat_channel_id"));
         try {
             if (chnl == null) {
                 Log.info("Chat channel not found! Perhaps you have not changed the text channel id yet?");
             } else {
                 channel = chnl;
                 Log.info("Channel found! forwarding texts..");
-                channel.sendMessage("Server started!").queue();
+                sendDiscordMessage("Server started!");
             }
         } catch (NullPointerException e) {
             Log.info("Chat channel not found! Perhaps you have not changed the text channel id yet?");

@@ -1,14 +1,16 @@
-package ml.itzblacky.mindustryjda;
+package ml.itzblacky.mindustryjda.Utils;
 
 import io.anuke.mindustry.Vars;
+import ml.itzblacky.mindustryjda.Main;
+import org.yaml.snakeyaml.Yaml;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Map;
+
+import static ml.itzblacky.mindustryjda.Main.setConfigMap;
 
 public class Utils {
 
@@ -29,12 +31,15 @@ public class Utils {
 
     }
 
-    public static String getString(Map<String, Object> config, String key) {
+    public static void loadConfig(Yaml yaml, String path) {
         try {
-            Object o = config.getOrDefault(key, "");
-            return o instanceof String ? (String) o : "";
-        } catch (NullPointerException e) {
-            return "";
+            Map<String, Object> config = yaml.load(new FileInputStream(new File(path + "/MindustryJDA/config.yml")));
+            // TODO: add version checking.
+            //if(getString(config, "version"))
+            setConfigMap(config);
+        } catch (FileNotFoundException e) {
+            copy(Main.class.getResourceAsStream("/config.yaml"), path + "/MindustryJDA/config.yml");
+            loadConfig(yaml, path);
         }
     }
 

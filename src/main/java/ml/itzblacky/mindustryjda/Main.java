@@ -4,16 +4,13 @@ import io.anuke.arc.Events;
 import io.anuke.arc.util.CommandHandler;
 import io.anuke.mindustry.Vars;
 import io.anuke.mindustry.game.EventType;
-import io.anuke.mindustry.mod.Mods;
 import io.anuke.mindustry.plugin.Plugin;
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.Map;
 
-import static ml.itzblacky.mindustryjda.Utils.copy;
+import static ml.itzblacky.mindustryjda.Utils.ConfigUtils.getString;
+import static ml.itzblacky.mindustryjda.Utils.Utils.loadConfig;
 
 public class Main extends Plugin {
 
@@ -25,25 +22,25 @@ public class Main extends Plugin {
     public Main() {
         path = Vars.modDirectory.absolutePath();
         yaml = new Yaml();
-        loadConfig();
+        loadConfig(yaml, path);
         discord = new Discord();
         discord.initJDA();
         Events.on(EventType.PlayerChatEvent.class, (event) -> {
-            discord.sendDiscordMessage(event.message);
+            discord.sendDiscordMessage(getString("mindustry_to_discord_chat_format")
+                    .replace("<playername>", event.player.name)
+                    .replace("<message>", event.message));
         });
     }
 
+    // Getter and setter for config
     public static Map<String, Object> getConfigMap() {
         return config;
     }
 
-    public static void disablePlugin() {
-        for (Mods.LoadedMod mod : Vars.mods.all()) {
-            if (mod.name.equals("MindustryJDA")) {
-                Vars.mods.setEnabled(mod, false);
-            }
-        }
+    public static void setConfigMap(Map<String, Object> configMap) {
+        config = configMap;
     }
+
 
     @Override
     public void registerServerCommands(CommandHandler handler) {
@@ -52,13 +49,5 @@ public class Main extends Plugin {
         });
     }
 
-    private void loadConfig() {
-        try {
-            config = yaml.load(new FileInputStream(new File(path + "/MindustryJDA/config.yml")));
 
-        } catch (FileNotFoundException e) {
-            copy(Main.class.getResourceAsStream("/config.yaml"), path + "/MindustryJDA/config.yml");
-            loadConfig();
-        }
-    }
 }

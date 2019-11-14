@@ -4,4 +4,12 @@ chat_channel_id: "12345678901234567890"
 
 admin_role_id: "1234567891234567890"
 
+# Sets the "Playing ..." message
 playing_message: "Mindustry"
+
+# Supports colors, available placeholders : [<rolecolor><playername>, <message>]
+# Role color currently doesnt work!
+discord_to_mindustry_chat_format: "[[gray][Discord] <rolecolor><playername>] <message>"
+
+# Does not support colors, available placeholders: [<playername>, <message>]
+mindustry_to_discord_chat_format: "<playername> >> <message>"
