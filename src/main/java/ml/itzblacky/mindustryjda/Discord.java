@@ -28,7 +28,7 @@ public class Discord {
         } catch (LoginException e) {
             Log.info("Error logging into discord! Perhaps you have not changed the bot token yet?");
         } catch (InterruptedException e) {
-            Log.info("Error loggin into discord!");
+            Log.info("Error logging into discord!");
             e.printStackTrace();
 
         }

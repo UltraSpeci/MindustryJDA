@@ -1,6 +1,6 @@
 package ml.itzblacky.mindustryjda.Utils;
 
-import io.anuke.mindustry.Vars;
+import io.anuke.mindustry.gen.Call;
 import ml.itzblacky.mindustryjda.Main;
 import org.yaml.snakeyaml.Yaml;
 
@@ -42,12 +42,8 @@ public class Utils {
             loadConfig(yaml, path);
         }
     }
-
     public static void sendMindustryMessage(String message) {
-        Vars.playerGroup.all().forEach((player) -> {
-            player.sendMessage(message);
-        });
-
+        Call.sendMessage(message);
     }
 }
 

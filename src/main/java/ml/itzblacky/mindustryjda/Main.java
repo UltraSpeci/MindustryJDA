@@ -2,6 +2,7 @@ package ml.itzblacky.mindustryjda;
 
 import io.anuke.arc.Events;
 import io.anuke.arc.util.CommandHandler;
+import io.anuke.arc.util.Log;
 import io.anuke.mindustry.Vars;
 import io.anuke.mindustry.game.EventType;
 import io.anuke.mindustry.plugin.Plugin;
@@ -9,6 +10,7 @@ import org.yaml.snakeyaml.Yaml;
 
 import java.util.Map;
 
+import static ml.itzblacky.mindustryjda.Utils.ColorUtils.removeColorString;
 import static ml.itzblacky.mindustryjda.Utils.ConfigUtils.getString;
 import static ml.itzblacky.mindustryjda.Utils.Utils.loadConfig;
 
@@ -18,18 +20,33 @@ public class Main extends Plugin {
     private String path;
     private Yaml yaml = null;
     private Discord discord;
+    private Thread jdaThread;
 
     public Main() {
         path = Vars.modDirectory.absolutePath();
         yaml = new Yaml();
         loadConfig(yaml, path);
         discord = new Discord();
-        discord.initJDA();
-        Events.on(EventType.PlayerChatEvent.class, (event) -> {
-            discord.sendDiscordMessage(getString("mindustry_to_discord_chat_format")
-                    .replace("<playername>", event.player.name)
-                    .replace("<message>", event.message));
+
+        jdaThread = new Thread(discord::initJDA, "JDA-Thread");
+        jdaThread.setUncaughtExceptionHandler((t, e) -> {
+            e.printStackTrace();
+            Log.info("JDA Failed to load properly!");
         });
+        jdaThread.start();
+
+        Events.on(EventType.PlayerChatEvent.class, (event) -> {
+            String toSend = getString("mindustry_to_discord_chat_format")
+                    .replace("<playername>", event.player.name)
+                    .replace("<message>", event.message);
+            discord.sendDiscordMessage(removeColorString(toSend));
+        });
+
+    }
+
+    @Override
+    public void registerServerCommands(CommandHandler handler) {
+
     }
 
     // Getter and setter for config
@@ -40,14 +57,5 @@ public class Main extends Plugin {
     public static void setConfigMap(Map<String, Object> configMap) {
         config = configMap;
     }
-
-
-    @Override
-    public void registerServerCommands(CommandHandler handler) {
-        handler.register("printconfig", "prints the config of mindustryjda", (args) -> {
-            System.out.println(config);
-        });
-    }
-
 
 }
