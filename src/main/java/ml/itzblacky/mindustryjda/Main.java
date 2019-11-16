@@ -41,7 +41,6 @@ public class Main extends Plugin {
                     .replace("<message>", event.message);
             discord.sendDiscordMessage(removeColorString(toSend));
         });
-
     }
 
     @Override

@@ -9,7 +9,9 @@ playing_message: "Mindustry"
 
 # Supports colors, available placeholders : [<rolecolor><playername>, <message>]
 # Role color currently doesnt work!
-discord_to_mindustry_chat_format: "[[gray][Discord] <rolecolor><playername>] <message>"
+# Note: doing something like "[[gray]" will escape the color. to avoid that,
+# add an invisible character between "[["
+discord_to_mindustry_chat_format: "[‎[gray][Discord] <rolecolor><playername>[white]] <message>"
 
 # Does not support colors, available placeholders: [<playername>, <message>]
 mindustry_to_discord_chat_format: "<playername> >> <message>"
