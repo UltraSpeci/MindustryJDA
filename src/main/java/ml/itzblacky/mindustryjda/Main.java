@@ -10,7 +10,6 @@ import org.yaml.snakeyaml.Yaml;
 
 import java.util.Map;
 
-import static ml.itzblacky.mindustryjda.Utils.ColorUtils.removeColorString;
 import static ml.itzblacky.mindustryjda.Utils.ConfigUtils.getString;
 import static ml.itzblacky.mindustryjda.Utils.Utils.loadConfig;
 
@@ -39,7 +38,23 @@ public class Main extends Plugin {
             String toSend = getString("mindustry_to_discord_chat_format")
                     .replace("<playername>", event.player.name)
                     .replace("<message>", event.message);
-            discord.sendDiscordMessage(removeColorString(toSend));
+            discord.sendDiscordMessage(toSend);
+        });
+        Events.on(EventType.PlayerJoin.class, (event) -> {
+           /*
+           String toSend = getString("player_join_message")
+                    .replace("<playername>, event.player.name);
+            */
+            String toSend = event.player.name + " Has joined!";
+            discord.sendDiscordMessage(toSend);
+        });
+        Events.on(EventType.PlayerLeave.class, (event) -> {
+            /*
+           String toSend = getString("player_join_message")
+                    .replace("<playername>, event.player.name);
+            */
+            String toSend = event.player.name + " Has left!";
+            discord.sendDiscordMessage(toSend);
         });
     }
 

@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import javax.security.auth.login.LoginException;
 import java.util.Map;
 
+import static ml.itzblacky.mindustryjda.Utils.ColorUtils.removeColorString;
 import static ml.itzblacky.mindustryjda.Utils.ConfigUtils.getString;
 
 public class Discord {
@@ -54,7 +55,7 @@ public class Discord {
     }
 
     public void sendDiscordMessage(String msg) {
-        channel.sendMessage(msg).queue();
+        channel.sendMessage(removeColorString(msg)).queue();
     }
 
     public JDA getJda() {
