@@ -1,8 +1,11 @@
 # MindustryJDA
 
-This is a very Work-In-Progress plugin made to sync chat between Discord <-> Mindustry.
+This is a Work-In-Progress plugin made to sync chat between Discord <-> Mindustry.
+This plugin uses JDA.
 
-IT IS NOT RECOMMENDED THAT YOU USE THIS PLUGIN FOR NON-TESTING PURPOSES.
+It is not recommended that you use this plugin for non-testing purposes!
+Bugs are present. Consider creating a new issue for bugs that you find!
+it will greatly help me!
 
 # How to Use
 Step 1. Download the latest release from the releases tab.
