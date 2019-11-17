@@ -41,19 +41,13 @@ public class Main extends Plugin {
             discord.sendDiscordMessage(toSend);
         });
         Events.on(EventType.PlayerJoin.class, (event) -> {
-           /*
-           String toSend = getString("player_join_message")
-                    .replace("<playername>, event.player.name);
-            */
-            String toSend = event.player.name + " Has joined!";
+            String toSend = getString("player_join_message")
+                    .replace("<playername>", event.player.name);
             discord.sendDiscordMessage(toSend);
         });
         Events.on(EventType.PlayerLeave.class, (event) -> {
-            /*
-           String toSend = getString("player_join_message")
-                    .replace("<playername>, event.player.name);
-            */
-            String toSend = event.player.name + " Has left!";
+            String toSend = getString("player_leave_message")
+                    .replace("<playername>", event.player.name);
             discord.sendDiscordMessage(toSend);
         });
     }

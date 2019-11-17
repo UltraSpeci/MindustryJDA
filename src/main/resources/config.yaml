@@ -1,13 +1,20 @@
+# Replace this with your bot's actuall token.
 bot_token: "ABCDEFGHIJKLMNOPQRSTUVWXYZ124"
 
+# Replace this with the channel you want to forward text to's ID
 chat_channel_id: "12345678901234567890"
 
+#Unused currently as theres no need for any Admin permission.
 admin_role_id: "1234567891234567890"
 
 # Sets the "Playing ..." message
 playing_message: "Mindustry"
 
-# Supports colors, available placeholders : [<rolecolor><playername>, <message>]
+
+# Sets the prefix of discord commands. Defaults to '.'
+prefix: "."
+
+# Supports colors, available placeholders : [<rolecolor>, <playername>, <message>]
 # Role color currently doesnt work!
 # Note: doing something like "[[gray]" will escape the color. to avoid that,
 # add an invisible character between "[["
@@ -15,3 +22,7 @@ discord_to_mindustry_chat_format: "[‎[gray][Discord] <rolecolor><playername>[w
 
 # Does not support colors, available placeholders: [<playername>, <message>]
 mindustry_to_discord_chat_format: "<playername> >> <message>"
+
+# Sets the message to send to discord when a player joins or leaves, available placeholders: [<playername>]
+player_join_message: "<playername> has joined the game!"
+player_leave_message: "<playername> has left the game!"

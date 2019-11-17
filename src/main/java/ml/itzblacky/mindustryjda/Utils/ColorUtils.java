@@ -7,10 +7,6 @@ public class ColorUtils {
     private static List<String> colors = new ArrayList<>();
 
     static {
-        addColors();
-    }
-
-    private static void addColors() {
         colors.add("[clear]");
         colors.add("[black]");
         colors.add("[white]");
