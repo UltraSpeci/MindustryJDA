@@ -1,3 +1,7 @@
+# THIS PLUGIN IS OUTDATED
+This plugin have not been updated recently and will NOT work on Mindustry 5.0 build 102 or later.
+Feel free to clone and open a pull request to update it if you want to. Theres no planned update in the near future from me.
+
 # MindustryJDA
 
 This is a Work-In-Progress plugin made to sync chat between Discord <-> Mindustry.
